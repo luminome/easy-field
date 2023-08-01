@@ -1,5 +1,5 @@
 import './easy-field.css'
-import path from 'path'
+// import path from 'path'
 
 ///<reference path="./custom.d.ts" />
 // import n_svg from './site-icon.svg'
