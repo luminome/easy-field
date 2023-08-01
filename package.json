@@ -5,7 +5,7 @@
   "main": "./build/",
   "scripts": {
     "install": "tsc -d -p .",
-    "postinstall": "cp ./src/*.css ./build && cp ./src/*.svg ./build && node ./build/post-install",
+    "postinstall": "cp ./src/*.css ./build && cp ./src/*.svg ./build && node ./build/post-install.js",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"

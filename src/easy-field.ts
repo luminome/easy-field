@@ -24,6 +24,15 @@ type easyField = {
 
 const check_line = (ez:easyField) => Math.min(ez.max_lines!, ez.num_lines!);
 
+const make_icons = () => {
+    const source = document.querySelector("svg-icons") as HTMLElement;
+    console.log(source);
+
+
+}
+
+
+
 /*
 export function eztext(dom_node){
 
@@ -148,13 +157,6 @@ export function eztext(dom_node){
  */
 
 const easyFieldObject = (element: HTMLDivElement) => {
-    // let counter = 0
-    // const setCounter = (count: number) => {
-    //     counter = count
-    //     element.innerHTML = `count is ${counter}`
-    // }
-    // element.addEventListener('click', () => setCounter(counter + 1))
-    // setCounter(0)
 
     const ctrl = {
         globalCss: document.querySelector(":root") as HTMLElement,
@@ -162,6 +164,7 @@ const easyFieldObject = (element: HTMLDivElement) => {
         widths: ['10px','64px'],
 
         set: () => {
+            make_icons();
             // const globalCss: HTMLElement | null = document.querySelector(":root") as HTMLElement;
             // globalCss.style.setProperty('--ctrl-width', '100px');
 
