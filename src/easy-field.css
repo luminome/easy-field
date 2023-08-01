@@ -3,6 +3,7 @@
     --bg: 0,0,0;
     --ctrl-width: 10px;
     --numbers-width: 32px;
+    --sample: url(./site-icon.svg);
 }
 
 .ez_dom{

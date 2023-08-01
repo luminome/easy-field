@@ -1,5 +1,19 @@
 import './easy-field.css'
-import './site-icon.svg'
+///<reference path="./custom.d.ts" />
+// import n_svg from './site-icon.svg'
+
+
+// const loadSvg = async (url: string) => {
+//     return fetch(url)
+//     .then(function (response) {
+//     console.log(response);
+//     return response.text();
+//     })
+//     .then(function (raw) {
+//     return new window.DOMParser().parseFromString(raw, "image/svg+xml");
+//     });
+// };
+
 
 const default_options = {
     num_lines: 10,
@@ -23,13 +37,6 @@ type easyField = {
 }
 
 const check_line = (ez:easyField) => Math.min(ez.max_lines!, ez.num_lines!);
-
-const make_icons = () => {
-    const source = document.querySelector("svg-icons") as HTMLElement;
-    console.log(source);
-
-
-}
 
 
 
@@ -162,9 +169,26 @@ const easyFieldObject = (element: HTMLDivElement) => {
         globalCss: document.querySelector(":root") as HTMLElement,
         openstate: false,
         widths: ['10px','64px'],
+        
+
+        make_icons: (source:Element) =>{
+            // ['input','output','clear'].map()
+            console.log(typeof source, source);
+
+
+        },
+
+        load_icons: () => {
+            const d = document.createElement('object');
+            d.setAttribute('data','./src/site-icon.svg');
+            d.onload = () => ctrl.make_icons(d.contentDocument?.querySelector('#button') as Element);
+        
+            E.dom_node.appendChild(d);
+        },
 
         set: () => {
-            make_icons();
+            ctrl.load_icons();
+            // make_icons();
             // const globalCss: HTMLElement | null = document.querySelector(":root") as HTMLElement;
             // globalCss.style.setProperty('--ctrl-width', '100px');
 
