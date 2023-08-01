@@ -1,9 +1,42 @@
 :root{
-    --fg: 0,0,0;
+    --fg: 255,255,255;
     --bg: 0,0,0;
     --ctrl-width: 10px;
     --numbers-width: 32px;
-    --sample: url(./site-icon.svg);
+    --slate: rgb(64, 64, 64);
+}
+
+svg {
+    display:block;
+}
+
+.svg-button{
+    display:block;
+    width:32px;
+    margin-left:14px;
+    margin-top:2px;
+    /* height:24px; */
+}
+
+.svg-button rect{
+    fill:none;
+}
+
+.svg-button rect:hover{
+    fill: rgba(var(--fg), 0.4);
+}
+
+.icon-border, .icon-icon{
+    fill: var(--slate);
+}
+
+.icon-icon{
+    pointer-events: none;
+}
+
+.icon-mask{
+    pointer-events: all;
+    cursor: pointer;
 }
 
 .ez_dom{
@@ -15,11 +48,32 @@
 
 .ez_control{
     position: absolute;
-    background: red;
+    /* background-color: rgba(var(--bg),0.2); */
     width: var(--ctrl-width);
     pointer-events: all;
     cursor: pointer;
+    /* padding:10px; */
+    overflow:hidden;
     /* //calc(var(--ctrl-width)px); */
+}
+
+.ez_control .handle{
+    width:4px;
+    height:2em;
+    border-radius: 2px;
+    background-color: var(--slate);
+    position:absolute;
+    top: 50%;
+	left: 3px;
+    -webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%); 
+}
+
+.ez_control .handle-break{
+    position:absolute;
+    height:100%;
+    border-right:2px var(--slate) dotted;
+    left: 10px;
 }
 
 .ez_field{
