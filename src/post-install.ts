@@ -1,5 +1,7 @@
-import pc from "picocolors"
+import pc from 'picocolors'
 
 console.log(
-  pc.green(`How are ${pc.italic(`you`)} doing?`)
+  pc.green(`${process.env.npm_package_name} v${process.env.npm_package_version} 
+  ${pc.italic('successfully built and installed')}
+  `)
 )

@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-   "moduleResolution": "node",
-   "target": "ES2022",
-   "module": "CommonJS",
-   "lib": ["ES2022","dom"],
-   "declaration": true,
-   "removeComments": false,
-   "noImplicitAny": true,
-   "esModuleInterop": true,
-   "allowSyntheticDefaultImports": true,
-   "baseUrl": "./",
-    "types": [
-      "node"],
-   "rootDir": "./src",
-   "outDir": "./build",
-   "allowJs": true
-   
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["ES2022","dom"],
+    "declaration": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./build",
+    "allowJs": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+
 },
   "include": [
     "./src/**/*.ts"
