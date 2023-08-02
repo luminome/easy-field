@@ -22,6 +22,8 @@ type easyField = {
     dom_field?: HTMLTextAreaElement;
     init: Function;
     test: Function;
+    log: Function;
+    input_callback?: Function;
 }
 
 const check_line = (ez:easyField) => Math.min(ez.max_lines!, ez.num_lines!);
@@ -158,7 +160,7 @@ var rs = getComputedStyle(r);
 
 
 
-const easyFieldObject = (element: HTMLDivElement) => {
+const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string)=>{console.log(el)}) => {
 
     const ctrl = {
         globalCss: document.querySelector(":root") as HTMLElement,
@@ -170,14 +172,16 @@ const easyFieldObject = (element: HTMLDivElement) => {
             evt.stopPropagation();
             b && b.label === 'clear' && clear_text();
             b && b.label === 'collapse-expand' && min_or_max(b.toggle_state);
+            b && b.label === 'input' && input_selection();
+
             b && b.label === 'plus-minus' && line_count_set(b.preselect);
+
+            // E.log(`${E.num_lines!} ${b.label} ${b.preselect}`);
         },
 
         set: () => {
             const buttons = E.dom_control?.querySelector('.buttons');
-
             const rec:re_button = button('multi', 'collapse-expand', ctrl.icon_click).init();
-            // const rec:re_button = button('multi', 'collapse-expand', ctrl.icon_click).init();
             const btn_rec = (rec.button as HTMLButtonElement);
             buttons && buttons.appendChild(btn_rec);
 
@@ -193,7 +197,8 @@ const easyFieldObject = (element: HTMLDivElement) => {
 
             var rs = getComputedStyle(ctrl.globalCss);
             const icon_size = rs.getPropertyValue('--btn-size');
-            ctrl.widths[1] = (parseInt(ctrl.widths[0])+parseInt(icon_size))+'px';
+            const icon_marg = rs.getPropertyValue('--btn-marg');
+            ctrl.widths[1] = (parseInt(ctrl.widths[0])+parseInt(icon_size)+(2*parseInt(icon_marg)))+'px';
         },
 
         toggle: (_:Event) => {
@@ -204,26 +209,37 @@ const easyFieldObject = (element: HTMLDivElement) => {
     }
 
     const clear_text = () => {
-        E.dom_field && (E.dom_field.value = 'cleared');
-        E.num_lines = default_options.initial_lines;
-        resize();
+        E.dom_field && (E.dom_field.value = '');
+        E.num_lines = 0;//default_options.initial_lines;
+        log.log_total_lines = 0;
+        // resize();
+    }
+
+    const input_selection = ():void => {
+        if(E.selected_text){
+            log.log(`"${E.selected_text}" has been input.`);
+            E.input_callback && E.input_callback(E.selected_text);
+        }else{
+            E.log(`input undefined, please make a selection.`);
+        }
     }
 
     const min_or_max = (v:boolean) => {
-        if(!v){
-            E.num_lines = default_options.min_lines;
-        }else{
-            E.num_lines = default_options.initial_lines;
-        }
-        // E.dom_field && (E.dom_field.value = 'cleared');
-        // E.num_lines = default_options.initial_lines;
-        resize();
+        const ht = !v ? default_options.min_lines : default_options.initial_lines;
+        resize(ht);
+
+
+        // if(!v){
+        //     E.num_lines = default_options.min_lines;
+        // }else{
+        //     E.num_lines = default_options.initial_lines;
+        // }
+        // resize();
     }
 
     const line_count_set = (v:boolean) => {
         console.log(v,[-1,1][+v]);
     }
-
 
     const check_clear_select = (_:Event) => {
         E.selected_text = null;
@@ -232,8 +248,6 @@ const easyFieldObject = (element: HTMLDivElement) => {
     const check_select = (_:Event) => { //keydown
         let { value, selectionStart, selectionEnd } = E.dom_field!;
         E.selected_text = value.slice(selectionStart, selectionEnd);
-
-        console.log(E.selected_text);
     }
 
     const check_key = (evt:KeyboardEvent) => { //keydown
@@ -250,7 +264,8 @@ const easyFieldObject = (element: HTMLDivElement) => {
 
         if (evt.code === 'Enter') { // if the key code is 13 (ENTER)
             E.num_lines! ++;
-            resize();
+            // resize();
+            update_lines();
         }
     }
 
@@ -261,11 +276,12 @@ const easyFieldObject = (element: HTMLDivElement) => {
         }
     }
 
-    const resize = ():void => {
-        const ht = check_line(E) * E.line_height! + 'px';
+    const resize = (val:number):void => {
+        const ht = val * E.line_height! + 'px';
+        [E.dom_control, E.dom_numbers, E.dom_field, E.dom_node].map((el:any) => el && (el.style.height = ht));
+    }
 
-        [E.dom_control, E.dom_numbers, E.dom_field, E.dom_node].map((el:any) => el && (el.style.height = ht))
-
+    const update_lines = ():void => {
         for(let i = 0; i < E.num_lines!; i++){
             if(E.line_numbers.list[i] === undefined){
                 const l = l_n(i);
@@ -280,6 +296,22 @@ const easyFieldObject = (element: HTMLDivElement) => {
         E.line_numbers.list = E.line_numbers.list.slice(0, E.num_lines!);
     }
 
+
+    const log = {
+        log_total_lines: 0,
+        log:(...content: string[]) => {
+            log.log_total_lines += content.length;
+
+            if(E.dom_field){
+               E.dom_field.value = content.join('\n') + '\n' + E.dom_field.value;
+               E.num_lines! = log.log_total_lines;
+
+               E.num_lines > default_options.initial_lines && update_lines();
+            }
+            
+        }
+    }
+
     const test = () => {
         const chk = check_line(E);
         console.log('test easyField', E, chk);
@@ -290,11 +322,10 @@ const easyFieldObject = (element: HTMLDivElement) => {
         Object.assign(default_options, options);
         Object.assign(E, default_options);
 
-
         E.dom_field = document.createElement('textarea');
         E.dom_field.classList.add('ez_field');
         E.dom_field.style.lineHeight = `${E.line_height}px`;
-        E.dom_field.setAttribute('placeholder','eztext\ntesting');
+        E.dom_field.setAttribute('placeholder','welcome to easy-field.');
         E.dom_field.setAttribute('rows','2');
 
         E.dom_control = document.createElement('div');
@@ -320,7 +351,8 @@ const easyFieldObject = (element: HTMLDivElement) => {
         E.dom_node?.classList.add('ez_dom');
         E.dom_node && (E.dom_node.style.height = (E.line_height!*E.num_lines!)+'px');
 
-        resize();
+        resize(default_options.initial_lines);
+        update_lines();
 
         ctrl.set();
 
@@ -339,6 +371,8 @@ const easyFieldObject = (element: HTMLDivElement) => {
         // dom_numbers: null,
         test: test,
         init: init,
+        log: log.log,
+        input_callback: callback
         // field: null,
         // numbers: null,
         // set_text,

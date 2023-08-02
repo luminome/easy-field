@@ -1,11 +1,14 @@
 .svg-btn-button{
-    margin:0;
-    /* 3px 3px 0 3px; */
-    padding:0;
-    width:28px;
-    box-sizing: border-box;
-    border: none;
+    margin: var(--btn-marg) var(--btn-marg) 0 var(--btn-marg);
+    width: var(--btn-size);
+    height: var(--btn-size);
+    vertical-align: middle;
+    box-sizing: content-box;
     background: none;
+
+    padding: 0 !important;
+    border: 0 none !important;
+
 }
 
 .svg-button{

@@ -7,9 +7,16 @@
     --fg-solid: 240, 0, 240;
 
     --btn-size: 28px;
+    --btn-marg: 2px;
+
     --btn-fg-solid: 240, 0, 240;
     --btn-active-solid: 240, 240, 0;
     --bg-solid: 120, 0, 120;
+}
+
+
+textarea::placeholder {
+    color: rgba(var(--fg-solid),1.0);
 }
 
 .ez_dom{
