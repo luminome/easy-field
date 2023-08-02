@@ -5,7 +5,7 @@
   "main": "./build/",
   "scripts": {
     "install": "tsc -d -p .",
-    "postinstall": "cp ./src/*.css ./build && cp ./src/*.svg ./build && npm run final",
+    "postinstall": "cp ./src/*.css ./build && npm run final",
     "test": "tsc -d -p . && node ./build/button.js",
     "final": "node ./build/post-install.js",
     "dev": "vite",
