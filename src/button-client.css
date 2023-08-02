@@ -1,0 +1,54 @@
+.svg-btn-button{
+    margin:0;
+    /* 3px 3px 0 3px; */
+    padding:0;
+    width:28px;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+}
+
+.svg-button{
+    display:block;
+    width:24px;
+    /* height:64px; */
+}
+
+.icon-border, .icon-icon{
+    fill: rgb(var(--btn-fg-solid));
+}
+
+.icon-icon{
+    pointer-events: none;
+}
+
+.icon-mask{
+    pointer-events: all;
+    cursor: pointer;
+    fill: none;
+}
+
+.icon-button-event {
+    fill: none;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.icon-mask:hover {
+    fill: rgba(var(--btn-active-solid), 0.5);
+}
+
+.icon-active {
+    fill: rgba(var(--btn-active-solid), 0.5);
+}
+
+.icon-icon.button-multi {
+    display:none;
+}
+.icon-icon.button-multi.icon-active-state {
+    display:block;
+}
+
+.icon-mask.icon-active:hover{
+    fill: rgba(var(--btn-active-solid), 1.0);
+}

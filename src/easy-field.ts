@@ -1,62 +1,14 @@
 import './easy-field.css'
-// import path from 'path'
-
-///<reference path="./custom.d.ts" />
-// import n_svg from './site-icon.svg'
-
-
-// const loadSvg = async (url: string) => {
-//     return fetch(url)
-//     .then(function (response) {
-//     console.log(response);
-//     return response.text();
-//     })
-//     .then(function (raw) {
-//     return new window.DOMParser().parseFromString(raw, "image/svg+xml");
-//     });
-// };
-
-//<svg viewBox="0 0 256 256"><?xml version="1.0" encoding="utf-8"?>
-
-
-const ctrl_icons = `
-<svg viewBox="0 0 256 256">
-	<g id="mask">
-		<rect class="st0" x="16" y="16" width="224" height="224"/>
-	</g>
-	<g id="border">
-		<path d="M224,8H32C18.7,8,8,18.7,8,32v192c0,13.3,10.7,24,24,24h192c13.3,0,24-10.7,24-24V32C248,18.7,237.3,8,224,8z M224,232H32
-			c-4.4,0-8-3.6-8-8V32c0-4.4,3.6-8,8-8h192c4.4,0,8,3.6,8,8v192C232,228.4,228.4,232,224,232z"/>
-	</g>
-	<g id="input">
-		<g>
-			<path d="M185,122.5l-49.7-24.7c-2.2-1.1-4.7-1.8-7.3-1.8s-5.1,0.6-7.3,1.8L71,122.5c-7.9,4-11,13.7-7,21.5c4,7.9,13.7,11,21.5,7
-				l26.5-13.2V192c0,8.8,7.2,16,16,16s16-7.2,16-16v-54.2l26.5,13.2c7.9,4,17.5,0.9,21.5-7C196,136.1,192.9,126.5,185,122.5z"/>
-			<path d="M192,48H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h128c8.8,0,16-7.2,16-16S200.8,48,192,48z"/>
-		</g>
-	</g>
-	<g id="output">
-		<g>
-			<path d="M71,133.5l49.7,24.7c2.2,1.1,4.7,1.8,7.3,1.8s5.1-0.6,7.3-1.8l49.7-24.7c7.9-4,11-13.7,7-21.5c-4-7.9-13.7-11-21.5-7
-				L144,118.2V64c0-8.8-7.2-16-16-16s-16,7.2-16,16v54.2L85.5,105c-7.9-4-17.5-0.9-21.5,7C60,119.9,63.1,129.5,71,133.5z"/>
-			<path d="M64,208h128c8.8,0,16-7.2,16-16s-7.2-16-16-16H64c-8.8,0-16,7.2-16,16S55.2,208,64,208z"/>
-		</g>
-	</g>
-	<g id="clear">
-		<path d="M184.6,161.9L94.1,71.4c-6.2-6.2-16.4-6.2-22.6,0s-6.2,16.4,0,22.6l90.5,90.5c6.2,6.2,16.4,6.2,22.6,0
-			S190.8,168.2,184.6,161.9z"/>
-		<path d="M94.1,184.6l90.5-90.5c6.2-6.2,6.2-16.4,0-22.6s-16.4-6.2-22.6,0l-90.5,90.5c-6.2,6.2-6.2,16.4,0,22.6
-			S87.8,190.8,94.1,184.6z"/>
-	</g>
-</svg>
-`;
+import button, { re_button } from './button-client'
 
 const default_options = {
+    initial_lines: 10,
+    min_lines: 2,
     num_lines: 10,
     max_lines: 20,
+    lines_showing: 10,
     line_height: 16,
 }
-
 
 type easyField = {
     line_numbers: {list:number[]};
@@ -80,6 +32,11 @@ const check_line = (ez:easyField) => Math.min(ez.max_lines!, ez.num_lines!);
 export function eztext(dom_node){
 
     
+var rs = getComputedStyle(r);
+  // Alert the value of the --blue variable
+  alert("The value of --blue is: " + rs.getPropertyValue('--blue'));
+
+
 
     function set_text(txt){
         const n = `${txt}`.split('\n').length;
@@ -199,6 +156,8 @@ export function eztext(dom_node){
  * @param element is the target div.
  */
 
+
+
 const easyFieldObject = (element: HTMLDivElement) => {
 
     const ctrl = {
@@ -206,56 +165,35 @@ const easyFieldObject = (element: HTMLDivElement) => {
         openstate: false,
         widths: ['10px','48px'],
         
-        icon_click: (evt:Event) => {
+        icon_click: (evt:Event, b:any = null) => {
             evt.preventDefault();
             evt.stopPropagation();
-            console.log((evt.currentTarget as HTMLElement).id);
-        },
-
-        make_icons: (source:Element) =>{
-            // ['input','output','clear'].map()
-            console.log(typeof source, source);
-
-
-        },
-
-        load_icons: () => {
-
-            const src = document.createElement('div');
-            src.innerHTML = ctrl_icons;
-            // document.body.appendChild(src);
-            
-
-            src && ['input','output','clear'].map((label:string) => {
-                const icon = document.createElement('div');
-                icon.classList.add('svg-button');
-                icon.innerHTML = `<svg viewBox="0 0 256 256"></svg>`;
-
-                ['mask','border',label].forEach((part:string, i:number) => {
-                    const chk = (src.querySelector(`#${part}`) as Element).cloneNode(true) as Element;
-                    chk.removeAttribute('id');
-                    part === 'mask' && (chk.setAttribute('id',label));
-                    chk.setAttribute('class',`icon-${i === 2 ? 'icon': part}`);
-
-                    chk.addEventListener('mouseup', ctrl.icon_click);
-                    icon.firstChild?.appendChild(chk);
-
-                    
-                })
-
-                document.body.appendChild(icon);
-                E.dom_control?.appendChild(icon);
-            })
-
-            // console.log(typeof svg_source, svg_source);
+            b && b.label === 'clear' && clear_text();
+            b && b.label === 'collapse-expand' && min_or_max(b.toggle_state);
+            b && b.label === 'plus-minus' && line_count_set(b.preselect);
         },
 
         set: () => {
-            ctrl.load_icons();
-            // make_icons();
-            // const globalCss: HTMLElement | null = document.querySelector(":root") as HTMLElement;
-            // globalCss.style.setProperty('--ctrl-width', '100px');
+            const buttons = E.dom_control?.querySelector('.buttons');
 
+            const rec:re_button = button('multi', 'collapse-expand', ctrl.icon_click).init();
+            // const rec:re_button = button('multi', 'collapse-expand', ctrl.icon_click).init();
+            const btn_rec = (rec.button as HTMLButtonElement);
+            buttons && buttons.appendChild(btn_rec);
+
+            ['clear','input'].map((label:string) => {
+                const re:re_button = button('basic', label, ctrl.icon_click).init();
+                const btn = (re.button as HTMLButtonElement);
+                buttons && buttons.appendChild(btn);
+            });
+
+            const re:re_button = button('split', 'plus-minus', ctrl.icon_click).init();
+            const btn = (re.button as HTMLButtonElement);
+            buttons && buttons.appendChild(btn);
+
+            var rs = getComputedStyle(ctrl.globalCss);
+            const icon_size = rs.getPropertyValue('--btn-size');
+            ctrl.widths[1] = (parseInt(ctrl.widths[0])+parseInt(icon_size))+'px';
         },
 
         toggle: (_:Event) => {
@@ -264,6 +202,28 @@ const easyFieldObject = (element: HTMLDivElement) => {
             ctrl.globalCss.style.setProperty('--ctrl-width', ctrl.widths[+ctrl.openstate]);
         }
     }
+
+    const clear_text = () => {
+        E.dom_field && (E.dom_field.value = 'cleared');
+        E.num_lines = default_options.initial_lines;
+        resize();
+    }
+
+    const min_or_max = (v:boolean) => {
+        if(!v){
+            E.num_lines = default_options.min_lines;
+        }else{
+            E.num_lines = default_options.initial_lines;
+        }
+        // E.dom_field && (E.dom_field.value = 'cleared');
+        // E.num_lines = default_options.initial_lines;
+        resize();
+    }
+
+    const line_count_set = (v:boolean) => {
+        console.log(v,[-1,1][+v]);
+    }
+
 
     const check_clear_select = (_:Event) => {
         E.selected_text = null;
@@ -340,7 +300,7 @@ const easyFieldObject = (element: HTMLDivElement) => {
         E.dom_control = document.createElement('div');
         E.dom_control.classList.add('ez_control');
         E.dom_control.addEventListener('mouseup', ctrl.toggle);
-        E.dom_control.innerHTML = '<div class="handle"></div><div class="handle-break"></div>';
+        E.dom_control.innerHTML = '<div class="handle"></div><div class="handle-break"></div><div class="buttons"></div>';
 
         E.dom_numbers = document.createElement('div');
         E.dom_numbers.classList.add('ez_numbers');
@@ -350,8 +310,6 @@ const easyFieldObject = (element: HTMLDivElement) => {
         E.dom_node?.appendChild(E.dom_field);
         E.dom_node?.appendChild(E.dom_control);
         
-
-        // E.dom_field.addEventListener('keyup', E.delta);
         E.dom_field.addEventListener('mouseup', check_clear_select);
         E.dom_field.addEventListener('select', check_select);
         E.dom_field.addEventListener('keydown', check_key);

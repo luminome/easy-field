@@ -4,43 +4,16 @@
     --ctrl-width: 10px;
     --numbers-width: 32px;
     --slate: rgb(64, 64, 64);
-}
+    --fg-solid: 240, 0, 240;
 
-svg {
-    display:block;
-}
-
-.svg-button{
-    display:block;
-    width:32px;
-    margin-left:14px;
-    margin-top:2px;
-    /* height:24px; */
-}
-
-.svg-button rect{
-    fill:none;
-}
-
-.svg-button rect:hover{
-    fill: rgba(var(--fg), 0.4);
-}
-
-.icon-border, .icon-icon{
-    fill: var(--slate);
-}
-
-.icon-icon{
-    pointer-events: none;
-}
-
-.icon-mask{
-    pointer-events: all;
-    cursor: pointer;
+    --btn-size: 28px;
+    --btn-fg-solid: 240, 0, 240;
+    --btn-active-solid: 240, 240, 0;
+    --bg-solid: 120, 0, 120;
 }
 
 .ez_dom{
-    background: rgba(var(--bg),0.6);
+    background: rgba(var(--bg-solid),0.8);
     display: block;
     position: relative;
     overflow: visible;
@@ -48,20 +21,17 @@ svg {
 
 .ez_control{
     position: absolute;
-    /* background-color: rgba(var(--bg),0.2); */
     width: var(--ctrl-width);
     pointer-events: all;
     cursor: pointer;
-    /* padding:10px; */
     overflow:hidden;
-    /* //calc(var(--ctrl-width)px); */
 }
 
 .ez_control .handle{
     width:4px;
-    height:2em;
+    height:1.2em;
     border-radius: 2px;
-    background-color: var(--slate);
+    background-color: rgb(var(--fg-solid));
     position:absolute;
     top: 50%;
 	left: 3px;
@@ -72,9 +42,24 @@ svg {
 .ez_control .handle-break{
     position:absolute;
     height:100%;
-    border-right:2px var(--slate) dotted;
+    border-right:2px rgba(var(--fg-solid), 0.5) dotted;
     left: 10px;
 }
+
+.ez_control .buttons{
+    /* padding-top: 2px; */
+    position:absolute;
+    height: 100%;
+    left: 10px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.ez_control .buttons::-webkit-scrollbar {
+    display: none;
+}
+
 
 .ez_field{
     border: 0;
@@ -93,6 +78,8 @@ svg {
     padding: 0;
     white-space: pre;
     tab-size: 12px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .ez_numbers{
@@ -110,8 +97,15 @@ svg {
     top:0;
     right:0;
     white-space: pre;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .ez_numbers div:nth-child(even){
     background-color: rgba(255,255,255,0.1);
+}
+
+
+.ez_numbers::-webkit-scrollbar, .ez_field::-webkit-scrollbar {
+    display: none;
 }
