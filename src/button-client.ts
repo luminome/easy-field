@@ -216,7 +216,7 @@ const make_svg = (container:HTMLDivElement, btn:re_button):void => {
             if(btn.type === 'multi' && part_name === btn.label!){
                 chok.setAttribute('id', part_path);
 
-                part_state === def_state && btn.toggles! && icon_class.push('icon-active-state');
+                part_state !== null && part_state === def_state && btn.toggles! && icon_class.push('icon-active-state');
             }
 
             // chok.setAttribute('class',`icon-${part_name === btn.label! ? 'icon' : label_class} button-${btn.type}`);
