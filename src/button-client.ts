@@ -165,6 +165,7 @@ export interface re_button {
     active_state?: boolean;
     visible_state?: boolean;
     preselect?: boolean;
+    set_state(): void;
     init(): re_button;
 }
 
@@ -233,13 +234,12 @@ const populate_src = (type_string:string, data:string):void => {
 
 const button = (type:string = 'basic', label:string = 'clear', callback:EventListener = (_:Event)=>{}):re_button => {
 
-    const set_state = () => {
+    const set_state = (force:any = null):void => {
         const toggle = () => {
-            B.toggle_state = !B.toggle_state;
+            B.toggle_state = force !== null ? (force as boolean) : !B.toggle_state;
             const cla = B.type === 'multi' ? 'icon-active-state' : 'icon-active';
             [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-${n}`)?.classList.toggle(cla));
         }
-        //B.type === 'split' && 
         B.icon && B.toggles && toggle();
     }
 
@@ -260,6 +260,7 @@ const button = (type:string = 'basic', label:string = 'clear', callback:EventLis
         type: type,
         label: label,
         toggles: type === 'split' || type === 'multi',
+        set_state: set_state,
         init: ():re_button => {
 
             !source[B.type].dom_loded && populate_src(B.type, source[B.type].content);
