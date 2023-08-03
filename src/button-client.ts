@@ -97,7 +97,7 @@ const split_ctrl_icons = {labels:['collapse-expand','on-off','plus-minus'], data
 `};
 
 
-const multistate_ctrl_icons = {labels:['io','collapse-expand','clear'], data:`
+const multistate_ctrl_icons = {labels:['io','collapse-expand','clear','plus'], data:`
 <svg id="multi" viewBox="0 0 256 512">
     <g id="mask">
     <rect x="16" y="16" class="st0" width="224" height="224"/>
@@ -141,6 +141,13 @@ const multistate_ctrl_icons = {labels:['io','collapse-expand','clear'], data:`
     <path d="M150.6,128l33.9-33.9c6.2-6.2,6.2-16.4,0-22.6c-6.2-6.2-16.4-6.2-22.6,0L128,105.4L94.1,71.4c-6.2-6.2-16.4-6.2-22.6,0
         c-6.2,6.2-6.2,16.4,0,22.6l33.9,33.9l-33.9,33.9c-6.2,6.2-6.2,16.4,0,22.6c6.2,6.2,16.4,6.2,22.6,0l33.9-33.9l33.9,33.9
         c6.2,6.2,16.4,6.2,22.6,0c6.2-6.2,6.2-16.4,0-22.6L150.6,128z"/>
+    </g>
+    <g id="plus-1">
+    <path d="M192,112h-48V64c0-8.8-7.2-16-16-16s-16,7.2-16,16v48H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h48v48c0,8.8,7.2,16,16,16
+        s16-7.2,16-16v-48h48c8.8,0,16-7.2,16-16S200.8,112,192,112z"/>
+    </g>
+    <g id="plus-0">
+        <path d="M192,112H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h128c8.8,0,16-7.2,16-16S200.8,112,192,112z"/>
     </g>
 </svg>
 `};
