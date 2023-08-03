@@ -165,7 +165,7 @@ export interface re_button {
     active_state?: boolean;
     visible_state?: boolean;
     preselect?: boolean;
-    set_state(): void;
+    set_state(state:any | null): void;
     init(): re_button;
 }
 
