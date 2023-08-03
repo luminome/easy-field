@@ -12,9 +12,9 @@ const ctrl_icons_default_states:any = {
     },
     multi:{
         "collapse-expand":1,
-        "plus":1,
-        "clear":1,
-        "io":1,
+        "plus":0,
+        "clear":0,
+        "io":0,
     }
 }
 
