@@ -260,7 +260,9 @@ const button = (type:string = 'basic', label:string = 'clear', callback:EventLis
         type: type,
         label: label,
         toggles: type === 'split' || type === 'multi',
-        set_state: set_state,
+        set_state: (state:any = null):void => {
+            set_state(state);
+        },
         init: ():re_button => {
 
             !source[B.type].dom_loded && populate_src(B.type, source[B.type].content);
