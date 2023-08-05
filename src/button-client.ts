@@ -205,7 +205,7 @@ const make_svg = (container:HTMLDivElement, btn:re_button):void => {
     container.innerHTML = `<svg viewBox="0 0 256 ${btn.type === 'split' ? 512 : 256}"></svg>`;
     const svg_src = mdoc.querySelector(`#${btn.type}`) as SVGSVGElement;
     const default_state = btn.options?.toggles ? btn.states.toggle : null;
-    console.log(btn.label, default_state);
+    // console.log(btn.label, default_state);
 
     const iter_layers:any = {
         'basic': ['mask', 'border', btn.label],
@@ -261,7 +261,7 @@ const make_svg = (container:HTMLDivElement, btn:re_button):void => {
 }
 
 const populate_src = (type_string:string, data:string):void => {
-    console.log('button-client populate_src', type_string);
+    // console.log('button-client populate_src', type_string);
     const el = mdoc.createElement('div');
     el.innerHTML = data.toString();
     el.style.display = 'none';
@@ -279,23 +279,30 @@ const button = (
     var interval_id: any | undefined;
     
     const set_state = (force:any = null):void => {
-        console.log(force, force as boolean);
 
         const toggle = () => {
             if(B.states && B.icon){
                 
 
                 B.states.toggle = force !== null ? (force as boolean) : !B.states.toggle;
-
-                console.log(B.states.toggle, 'again', B.label);
-
                 const cla = 'icon-active';
-                [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-${n}`)?.classList.toggle(cla));
-                [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-icon-${n}`)?.classList.toggle(cla));
+
+                [0,1].map((n:number) => {
+                    const tgt = B.icon?.querySelector(`#${B.label}-${n}`);
+                    n === +B.states.toggle ? tgt?.classList.add(cla) : tgt?.classList.remove(cla);
+                });
+
+                [0,1].map((n:number) => {
+                    const tgt = B.icon?.querySelector(`#${B.label}-icon-${n}`);
+                    n === +B.states.toggle ? tgt?.classList.add(cla) : tgt?.classList.remove(cla);
+                });
             }
         }
         B.options?.toggles && toggle();
     }
+
+
+
 
     const pre_select = (evt:Event):void => {
         // evt.preventDefault();
@@ -354,7 +361,7 @@ const button = (
         options: options,
         states: {toggle:false, active:false, visible:false},
         set_state: (state:any = null):void => {
-            console.log('enter set_state', state, state as boolean);
+            // console.log('enter set_state', state, state as boolean);
             set_state(state);
         },
         init: ():re_button => {

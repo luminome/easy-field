@@ -24,6 +24,7 @@ const test_field_bkgnd = document.querySelector<HTMLDivElement>('#test');
     ['io','collapse-expand','clear','plus'].map((b:string) => {
         const btn = button('multi', b, {}).init();
         src.id === 'test' && btn.button?.classList.add('invert');
+        // btn.set_state(true);
         // btn.button?.classList.add('rotate');
         // btn.icon?.setAttribute('transform', "rotate(-90 0 0)");
         src?.appendChild(btn.button as HTMLButtonElement);
