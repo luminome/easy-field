@@ -1,28 +1,70 @@
+/* Functional notation: hsl(H S L[ / A]) */
+
+:root{
+    --zone: 0 0%;
+    --zone-bg-l: 100%;
+
+    --bdr: 0.5;
+    --act: 0.8;
+    --icn-act : 0.5;
+    --icn-n-act : 0.7;
+    --icn-brite: 0.3;
+    --hvr: 0.7;
+    --hvr-lt: 0.6;
+    --hvr-sel: 0.9;
+}
+
+.invert{
+    --bdr: 0.2;
+    --act: 0.3;
+    --icn-act : 0.7;
+    --icn-n-act : 0.4;
+    --icn-brite: 0.8;
+    --hvr: 0.3;
+    --hvr-lt: 0.2;
+    --hvr-sel: 0.35;
+}
+
+
+
 .svg-btn-button{
     margin: var(--btn-marg) var(--btn-marg) 0 var(--btn-marg);
     width: var(--btn-size);
-    height: var(--btn-size);
+    /* height: var(--btn-size); */
+    /* height: max-content; */
     vertical-align: middle;
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
     background: none;
-
+    /* background: white; */
     padding: 0 !important;
     border: 0 none !important;
-
+    /* transform: rotate(0.25turn); */
+    box-sizing: content-box;
+    /* border: 1px black solid; */
+    border-radius: calc(var(--btn-marg) * 2.0);
 }
 
-.svg-button{
-    display:block;
-    width:24px;
-    /* height:64px; */
+
+
+
+.svg-btn-button svg{
+    vertical-align: middle;
+    box-sizing: content-box;
+}
+
+.svg-btn-button.rotate {
+    width: calc(var(--btn-size) * 2.0);
+    height: var(--btn-size);
+}
+
+.svg-btn-button.rotate svg{
+    transform: translate(0, -25%) rotate(-0.25turn);
+    width: calc(var(--btn-size) * 1.0);
 }
 
 .icon-border, .icon-icon{
-    fill: rgb(var(--btn-fg-solid));
-}
-
-.icon-icon{
     pointer-events: none;
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--bdr)));
 }
 
 .icon-mask{
@@ -31,27 +73,53 @@
     fill: none;
 }
 
-.icon-button-event {
-    fill: none;
-    pointer-events: all;
-    cursor: pointer;
+.svg-btn-button:hover .button-split.icon-mask:not(.icon-active) {
+    fill:none;
 }
 
-.icon-mask:hover {
-    fill: rgba(var(--btn-active-solid), 0.5);
+.svg-btn-button:hover .button-multi.icon-icon, .svg-btn-button:hover .button-basic.icon-icon , .icon-focus{
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--icn-brite)));
 }
 
-.icon-active {
-    fill: rgba(var(--btn-active-solid), 0.5);
+
+.icon-mask :hover {
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--hvr)));
 }
 
-.icon-icon.button-multi {
+.icon-mask.icon-active :hover{
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--hvr-lt)));
+}
+
+.button-split.icon-mask.icon-active{
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--act)));
+}
+
+/*
+.button-split.icon-mask:not(.icon-active) :hover{
+    fill:  hsl(var(--zone) calc(var(--zone-bg-l) * var(--hvr-sel)));
+}
+
+
+
+.button-split.icon-icon:not(.icon-active){
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--icn-n-act)));
+}
+
+
+*/
+
+.button-split.icon-icon.icon-active{
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--icn-act)));
+}
+
+.button-split.icon-icon:not(.icon-active, .no-toggle){
+    fill: hsl(var(--zone) calc(var(--zone-bg-l) * var(--icn-n-act)));
+}
+
+.button-multi.icon-icon{
     display:none;
 }
-.icon-icon.button-multi.icon-active-state {
-    display:block;
-}
 
-.icon-mask.icon-active:hover{
-    fill: rgba(var(--btn-active-solid), 1.0);
+.button-multi.icon-icon.icon-active{
+    display:block;
 }

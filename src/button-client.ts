@@ -1,17 +1,18 @@
 /**
  * this is more basic. client-side.
  */
-import './button-client.css';
+// import './button-client.css';
 
 
 const ctrl_icons_default_states:any = {
     basic: {},
     split:{
-        "collapse-expand":0,
-        "on-off":1,
+        "plus-minus": 0,
+        "collapse-expand": 0,
+        "on-off": 1,
     },
     multi:{
-        "collapse-expand":1,
+        "collapse-expand":0,
         "plus":0,
         "clear":0,
         "io":0,
@@ -69,31 +70,46 @@ const split_ctrl_icons = {labels:['collapse-expand','on-off','plus-minus'], data
         c4.4,0,8,3.6,8,8v216H24V32C24,27.6,27.6,24,32,24z M224,488H32c-4.4,0-8-3.6-8-8V264h208v216C232,484.4,228.4,488,224,488z"/>
     </g>
     <g id="collapse-expand">
-    <path d="M182.6,196.9c-2.7,6-9.9,8.7-15.9,5.9L140,190.7V220c0,6.6-5.4,12-12,12s-12-5.4-12-12v-29.3l-26.7,12.2
-        c-6,2.7-13.1,0.1-15.9-5.9c-2.7-6-0.1-13.1,5.9-15.9l43.5-19.8c1.6-0.7,3.3-1.2,5.1-1.2s3.6,0.4,5.1,1.2l43.5,19.8
-        C182.7,183.7,185.4,190.8,182.6,196.9z M79.3,91l43.5,19.8c1.6,0.7,3.3,1.2,5.1,1.2s3.6-0.4,5.1-1.2L176.7,91
-        c6-2.7,8.7-9.9,5.9-15.9c-2.7-6-9.9-8.7-15.9-5.9L140,81.3V52c0-6.6-5.4-12-12-12s-12,5.4-12,12v29.3L89.3,69.2
-        c-6-2.7-13.1-0.1-15.9,5.9C70.6,81.2,73.3,88.3,79.3,91z M192,124H64c-6.6,0-12,5.4-12,12c0,6.6,5.4,12,12,12h128
-        c6.6,0,12-5.4,12-12C204,129.4,198.6,124,192,124z M73.4,435.1c2.7-6,9.9-8.7,15.9-5.9l26.7,12.2V412c0-6.6,5.4-12,12-12
-        s12,5.4,12,12v29.3l26.7-12.2c6-2.7,13.1-0.1,15.9,5.9c2.7,6,0.1,13.1-5.9,15.9l-43.5,19.8c-1.6,0.7-3.3,1.2-5.1,1.2
-        s-3.6-0.4-5.1-1.2L79.3,451C73.3,448.3,70.6,441.2,73.4,435.1z M176.7,301l-43.5-19.8c-1.6-0.7-3.3-1.2-5.1-1.2
-        c-1.8,0-3.6,0.4-5.1,1.2L79.3,301c-6,2.7-8.7,9.9-5.9,15.9c2.7,6,9.9,8.7,15.9,5.9l26.7-12.2l0,29.3c0,6.6,5.4,12,12,12
-        s12-5.4,12-12l0-29.3l26.7,12.2c6,2.7,13.1,0.1,15.9-5.9C185.4,310.8,182.7,303.7,176.7,301z M192,364H64c-6.6,0-12,5.4-12,12
-        c0,6.6,5.4,12,12,12h128c6.6,0,12-5.4,12-12C204,369.4,198.6,364,192,364z"/>
+    <g id="collapse-expand-1">
+        <path d="M182.6,196.9c-2.7,6-9.9,8.7-15.9,5.9L140,190.7V220c0,6.6-5.4,12-12,12s-12-5.4-12-12v-29.3l-26.7,12.2
+            c-6,2.7-13.1,0.1-15.9-5.9c-2.7-6-0.1-13.1,5.9-15.9l43.5-19.8c1.6-0.7,3.3-1.2,5.1-1.2s3.6,0.4,5.1,1.2l43.5,19.8
+            C182.7,183.7,185.4,190.8,182.6,196.9z"/>
+        <path d="M79.3,91l43.5,19.8c1.6,0.7,3.3,1.2,5.1,1.2s3.6-0.4,5.1-1.2L176.7,91c6-2.7,8.7-9.9,5.9-15.9c-2.7-6-9.9-8.7-15.9-5.9
+            L140,81.3V52c0-6.6-5.4-12-12-12s-12,5.4-12,12v29.3L89.3,69.2c-6-2.7-13.1-0.1-15.9,5.9C70.6,81.2,73.3,88.3,79.3,91z"/>
+        <path d="M192,124H64c-6.6,0-12,5.4-12,12s5.4,12,12,12h128c6.6,0,12-5.4,12-12S198.6,124,192,124z"/>
     </g>
-    <g id="plus-minus" class="no-toggle">
-    <path d="M192,120h-48V72c0-8.8-7.2-16-16-16s-16,7.2-16,16v48H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h48v48c0,8.8,7.2,16,16,16
-        s16-7.2,16-16v-48h48c8.8,0,16-7.2,16-16S200.8,120,192,120z"/>
-    <path d="M192,360H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h128c8.8,0,16-7.2,16-16S200.8,360,192,360z"/>
+    <g id="collapse-expand-0">
+        <path d="M73.4,435.1c2.7-6,9.9-8.7,15.9-5.9l26.7,12.2V412c0-6.6,5.4-12,12-12c6.6,0,12,5.4,12,12v29.3l26.7-12.2
+            c6-2.7,13.1-0.1,15.9,5.9c2.7,6,0.1,13.1-5.9,15.9l-43.5,19.8c-1.6,0.7-3.3,1.2-5.1,1.2s-3.6-0.4-5.1-1.2L79.3,451
+            C73.3,448.3,70.6,441.2,73.4,435.1z"/>
+        <path d="M176.7,301l-43.5-19.8c-1.6-0.7-3.3-1.2-5.1-1.2s-3.6,0.4-5.1,1.2L79.3,301c-6,2.7-8.7,9.9-5.9,15.9
+            c2.7,6,9.9,8.7,15.9,5.9l26.7-12.2v29.3c0,6.6,5.4,12,12,12c6.6,0,12-5.4,12-12v-29.3l26.7,12.2c6,2.7,13.1,0.1,15.9-5.9
+            C185.4,310.8,182.7,303.7,176.7,301z"/>
+        <path d="M192,364H64c-6.6,0-12,5.4-12,12s5.4,12,12,12h128c6.6,0,12-5.4,12-12S198.6,364,192,364z"/>
+    </g>
+    </g>
+    <g id="plus-minus">
+    <g id="plus-minus-1">
+        <path d="M192,120h-48V72c0-8.8-7.2-16-16-16s-16,7.2-16,16v48H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h48v48c0,8.8,7.2,16,16,16
+            s16-7.2,16-16v-48h48c8.8,0,16-7.2,16-16S200.8,120,192,120z"/>
+    </g>
+    <g id="plus-minus-0">
+        <path d="M192,360H64c-8.8,0-16,7.2-16,16s7.2,16,16,16h128c8.8,0,16-7.2,16-16S200.8,360,192,360z"/>
+    </g>
     </g>
     <g id="on-off">
-    <path d="M70.9,153.5v-35c0-13.3,10.2-22.4,24.4-22.4c14,0,24.4,9.1,24.4,22.4v35c0,13.3-10.2,22.4-24.4,22.4
-        C81.2,175.9,70.9,166.9,70.9,153.5z M109.7,153.5v-35c0-7.5-5.8-12.4-14.4-12.4c-8.2,0-14.4,4.3-14.4,12.4v35
-        c0,7.8,5.9,12.4,14.4,12.4C103.5,165.9,109.7,161.6,109.7,153.5z M136.3,174.8V97.2h9.9l28.9,55.9V97.2h10v77.5h-10l-28.8-55.9
-        v55.9H136.3z M43.6,393.5v-35c0-13.3,10.2-22.4,24.4-22.4c14,0,24.4,9.1,24.4,22.4v35c0,13.3-10.2,22.4-24.4,22.4
-        C53.9,415.9,43.6,406.9,43.6,393.5z M82.4,393.5v-35c0-7.5-5.8-12.4-14.4-12.4c-8.2,0-14.4,4.3-14.4,12.4v35
-        c0,7.8,5.9,12.4,14.4,12.4C76.2,405.9,82.4,401.6,82.4,393.5z M109,414.8v-77.5h44.9v10.1H119v24.8h28.1v10H119v32.7H109z
-        M167.5,414.8v-77.5h44.9v10.1h-34.9v24.8h28.1v10h-28.1v32.7H167.5z"/>
+    <g id="on-off-1">
+        <path d="M70.9,153.5v-35c0-13.3,10.2-22.4,24.4-22.4c14,0,24.4,9.1,24.4,22.4v35c0,13.3-10.2,22.4-24.4,22.4
+            C81.2,175.9,70.9,166.9,70.9,153.5z M109.7,153.5v-35c0-7.5-5.8-12.4-14.4-12.4c-8.2,0-14.4,4.3-14.4,12.4v35
+            c0,7.8,5.9,12.4,14.4,12.4C103.5,165.9,109.7,161.6,109.7,153.5z M136.3,174.8V97.2h9.9l28.9,55.9V97.2h10v77.5h-10l-28.8-55.9
+            v55.9h-10V174.8z"/>
+    </g>
+    <g id="on-off-0">
+        <path d="M43.6,393.5v-35c0-13.3,10.2-22.4,24.4-22.4c14,0,24.4,9.1,24.4,22.4v35c0,13.3-10.2,22.4-24.4,22.4
+            C53.9,415.9,43.6,406.9,43.6,393.5z M82.4,393.5v-35c0-7.5-5.8-12.4-14.4-12.4c-8.2,0-14.4,4.3-14.4,12.4v35
+            c0,7.8,5.9,12.4,14.4,12.4C76.2,405.9,82.4,401.6,82.4,393.5z M109,414.8v-77.5h44.9v10.1H119v24.8h28.1v10H119v32.7h-10V414.8z
+            M167.5,414.8v-77.5h44.9v10.1h-34.9v24.8h28.1v10h-28.1v32.7h-10V414.8z"/>
+    </g>
     </g>
 </svg>
 `};
@@ -162,69 +178,81 @@ const source:any = {
 
 const mdoc = document;
 
+export interface svg {
+
+}
+
 export interface re_button {
     type: string;
-    label?: string;
+    label: string;
     initialized?: boolean | null;
     icon?: SVGSVGElement | null;
     button?: HTMLButtonElement | null;
     callback?: Function;
-    toggles?: boolean;
-    toggle_state?: boolean;
-    active_state?: boolean;
-    visible_state?: boolean;
+    // toggles?: boolean;
+    // toggle_state?: boolean;
+    // active_state?: boolean;
+    // visible_state?: boolean;
+    // rotate?: boolean;
+    states: {toggle:boolean, active:boolean, visible:boolean};
+    options?: {toggles:boolean, rotate:boolean, incremental:boolean};
     preselect?: boolean;
     set_state(state:any | null): void;
     init(): re_button;
 }
 
 const make_svg = (container:HTMLDivElement, btn:re_button):void => {
-
     container.innerHTML = `<svg viewBox="0 0 256 ${btn.type === 'split' ? 512 : 256}"></svg>`;
     const svg_src = mdoc.querySelector(`#${btn.type}`) as SVGSVGElement;
-
-    if(btn.type === 'split'){
-        const by_part_id = svg_src.querySelector(`#${btn.label!}`) as Element;
-        btn.toggles = !by_part_id.classList.contains('no-toggle');
-    }
-
-    
+    const default_state = btn.options?.toggles ? btn.states.toggle : null;
+    console.log(btn.label, default_state);
 
     const iter_layers:any = {
-        'basic': ['mask', 'border', btn.label!],
-        'split': [['mask','mask-0', 0], ['mask','mask-1', 1], 'border', btn.label!],
-        'multi': ['mask', 'border', [btn.label!,`${btn.label!}-0`,0], [btn.label!,`${btn.label!}-1`,1]],
+        'basic': ['mask', 'border', btn.label],
+        'split': [['mask', 0], ['mask', 1], 'border', [btn.label, 0], [btn.label, 1]],
+        'multi': ['mask', 'border', [btn.label, 0], [btn.label, 1]],
     }
+
+    // const iter_layers:any = {
+    //     'basic': ['mask', 'border', btn.label],
+    //     'split': [['mask','mask-0', 0], ['mask','mask-1', 1], 'border', [btn.label,`${btn.label}-0`,0], [btn.label,`${btn.label}-1`,1]],
+    //     'multi': ['mask', 'border', [btn.label,`${btn.label}-0`,0], [btn.label,`${btn.label}-1`,1]],
+    // }
 
     iter_layers[btn.type].forEach((part:string | string[]) => {
         try {
-            const [part_name, part_path, part_state] = Array.isArray(part) ? part : [part, part, null];
-            const def_state = ctrl_icons_default_states[btn.type][part_name] || null;
-            const chok = (svg_src.querySelector(`#${part_path}`) as Element).cloneNode(true) as Element;
+            const sa = Array.isArray(part);
+            const pk = {
+                name: sa ? part[0] : part,
+                id: sa ? `${part[0]}-${part[1]}` : part,
+                state: sa ? Number(part[1]) : null
+            }
 
-
+            const chok = (svg_src.querySelector(`#${pk.id}`) as Element).cloneNode(true) as Element;
             chok.removeAttribute('id');
 
-            const icon_class = part_name === btn.label! ? ['icon-icon',`button-${btn.type}`] : [`icon-${part_name}`,`button-${btn.type}`];
+            const icon_class = pk.name === btn.label ? [`button-${btn.type}`,'icon-icon'] : [`button-${btn.type}`,`icon-${pk.name}`];
 
-            if(part_name.indexOf('mask') !== -1){
-                const evt_label = part_state !== null ? `${btn.label!}-${part_state}` : btn.label!;
-                chok.setAttribute('id', evt_label);
-                part_state !== null && part_state === def_state && btn.toggles! && icon_class.push('icon-active');
-            }
+            if(pk.name === ('mask')){
+                const mask_id = btn.type === 'split' ? `${btn.label}-${pk.state}` : btn.label;
+                chok.setAttribute('id', mask_id);
+            } 
             
-            if(btn.type === 'multi' && part_name === btn.label!){
-                chok.setAttribute('id', part_path);
-
-                part_state !== null && part_state === def_state && btn.toggles! && icon_class.push('icon-active-state');
+            if(pk.name === btn.label){
+                btn.type === 'multi' && chok.setAttribute('id', `${pk.name}-${pk.state}`);
+                btn.type === 'split' && chok.setAttribute('id', `${pk.name}-icon-${pk.state}`);
+                const r_c_y = btn.type === 'split' ? ((pk.state === 0 && btn.type === 'split') ? 376 : 136) : 128;
+                btn.options?.rotate && chok.setAttribute('transform', `rotate(90 128 ${r_c_y})`);
             }
 
-            // chok.setAttribute('class',`icon-${part_name === btn.label! ? 'icon' : label_class} button-${btn.type}`);
+            btn.options?.toggles && pk.name !== 'border' && pk.state === +default_state! && icon_class.push('icon-active');
+            !btn.options?.toggles && pk.name !== 'border' && icon_class.push('no-toggle');
+
             chok.setAttribute('class', icon_class.join(' '));
             container.firstChild?.appendChild(chok);
 
         } catch (error) {
-            console.log('misconfigured', error);
+            console.log('svg misconfigured:', error);
         }
 
     });
@@ -241,38 +269,96 @@ const populate_src = (type_string:string, data:string):void => {
     source[type_string].dom_loded = true;
 }
 
-const button = (type:string = 'basic', label:string = 'clear', callback:EventListener = (_:Event)=>{}):re_button => {
+const button = (
+    type:string = 'basic', 
+    label:string = 'clear', 
+    options:any = {}, 
+    callback:EventListener = (_:Event)=>{}):re_button => {
 
+    var event_frame: 0;
+    var interval_id: any | undefined;
+    
     const set_state = (force:any = null):void => {
         const toggle = () => {
-            B.toggle_state = force !== null ? (force as boolean) : !B.toggle_state;
-            const cla = B.type === 'multi' ? 'icon-active-state' : 'icon-active';
-            [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-${n}`)?.classList.toggle(cla));
+            if(B.states && B.icon){
+                B.states.toggle = force !== null ? (force as boolean) : !B.states.toggle;
+                const cla = 'icon-active';
+                [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-${n}`)?.classList.toggle(cla));
+                [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-icon-${n}`)?.classList.toggle(cla));
+            }
         }
-        B.icon && B.toggles && toggle();
+        B.options?.toggles && toggle();
     }
 
-    const pre_select = (evt:Event) => {
+    const pre_select = (evt:Event):void => {
+        // evt.preventDefault();
+        // evt.stopPropagation();
         const p_el = evt.currentTarget as Element;
         const ref = p_el && (Number(p_el.id.split('-').pop()) === 0);
-        B.preselect = ref;
-        console.log(ref);
+        const icon = B.type === 'split' && B.icon?.querySelector(`#${B.label}-icon-${+ref}`);// || 
+            // B.icon?.querySelector(`#${B.label}-${+ref}`);// ||
+            // B.icon?.querySelector(`.icon-icon`);
+
+        if(evt.type === 'mouseenter'){
+            icon && icon?.classList.add('icon-focus');
+            B.preselect = ref;
+        }else{
+            icon && icon?.classList.remove('icon-focus');
+        }
     }
 
     const some_other_func = (cb:Function, evt:Event):void => {
-        set_state();
-        console.log('from state', B.type, B.toggle_state, (evt.currentTarget as Element));
-        cb(evt, B);
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        // console.log(evt.type);
+
+        const increment = ():void => {
+            event_frame ++;
+            cb(evt, B);
+        }
+
+        if(evt.type === 'mouseleave'){
+            clearInterval(interval_id);
+        }
+
+        if(evt.type === 'mouseup'){
+            clearInterval(interval_id);
+
+            if(!event_frame){
+                set_state();
+                // console.log(interval_id!, B.type, B.label, B.states, (evt.currentTarget as Element));
+                cb(evt, B);
+            }else{
+                event_frame = 0;
+            }
+        }
+        
+        if(evt.type === 'mousedown' && B.options?.incremental){
+            event_frame = 0;
+            interval_id = setInterval(increment, 100);
+        }
+
     }
 
     const B:re_button = {
         type: type,
         label: label,
-        toggles: type === 'split' || type === 'multi',
+        options: options,
+        states: {toggle:false, active:false, visible:false},
         set_state: (state:any = null):void => {
             set_state(state);
         },
         init: ():re_button => {
+            Object.assign(B, options);
+            B.type === 'multi' && (options.toggles = true);
+            options.toggles && (B.states.toggle = ctrl_icons_default_states[B.type][B.label] as boolean);
+
+            //console.log('B.states.toggle', options.toggles, B.states.toggle);
+
+            
+
+
 
             !source[B.type].dom_loded && populate_src(B.type, source[B.type].content);
 
@@ -286,19 +372,25 @@ const button = (type:string = 'basic', label:string = 'clear', callback:EventLis
             const button = mdoc.createElement('button');
             button.appendChild(B.icon);
             button.classList.add('svg-btn-button');
-
+            options.rotate && button.classList.add('rotate');
             // button.diagonal = B;
 
             B.button = (button as HTMLButtonElement);//.cloneNode(true) as HTMLButtonElement;
             B.button.addEventListener('mouseup', some_other_func.bind(null, callback), false);
-            if(B.type === 'split'){
+            B.button.addEventListener('mouseleave', some_other_func.bind(null, callback), false);
+            B.button.addEventListener('mousedown', some_other_func.bind(null, callback), false);
+
+
+
+            // if(B.type === 'split'){
                 B.icon.querySelectorAll(`.icon-mask`)?.forEach((el:Node) => {
                     el.addEventListener('mouseenter', pre_select, false);
+                    el.addEventListener('mouseleave', pre_select, false);
                 })
 
-            }
+            // }
 
-            set_state();
+            // set_state();
             B.initialized = true;
             return B
         }

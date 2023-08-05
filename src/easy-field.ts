@@ -171,39 +171,41 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
             evt.preventDefault();
             evt.stopPropagation();
             b && b.label === 'clear' && clear_text();
-            b && b.label === 'collapse-expand' && min_or_max(b.toggle_state);
+            b && b.label === 'collapse-expand' && min_or_max(b.states.toggle);
             b && b.label === 'input' && input_selection();
-
             b && b.label === 'plus-minus' && line_count_set(b.preselect);
-
-            // E.log(`${E.num_lines!} ${b.label} ${b.preselect}`);
         },
 
         set: () => {
             const buttons = E.dom_control?.querySelector('.buttons');
-            const rec:re_button = button('multi', 'collapse-expand', ctrl.icon_click).init();
+
+            const rec:re_button = button('multi', 'collapse-expand', {}, ctrl.icon_click).init();
             const btn_rec = (rec.button as HTMLButtonElement);
+            btn_rec.classList.add('invert');
             buttons && buttons.appendChild(btn_rec);
 
             ['clear','input'].map((label:string) => {
-                const re:re_button = button('basic', label, ctrl.icon_click).init();
+                const re:re_button = button('basic', label, {}, ctrl.icon_click).init();
                 const btn = (re.button as HTMLButtonElement);
+                btn.classList.add('invert');
                 buttons && buttons.appendChild(btn);
             });
 
-            const re:re_button = button('split', 'plus-minus', ctrl.icon_click).init();
+            const re:re_button = button('split', 'plus-minus', {incremental:true}, ctrl.icon_click).init();
             const btn = (re.button as HTMLButtonElement);
+            btn.classList.add('invert');
             buttons && buttons.appendChild(btn);
 
             var rs = getComputedStyle(ctrl.globalCss);
             const icon_size = rs.getPropertyValue('--btn-size');
             const icon_marg = rs.getPropertyValue('--btn-marg');
             ctrl.widths[1] = (parseInt(ctrl.widths[0])+parseInt(icon_size)+(2*parseInt(icon_marg)))+'px';
+
         },
 
         toggle: (_:Event) => {
             ctrl.openstate = !ctrl.openstate;
-            console.log(ctrl.openstate);
+            console.log('ctrl.openstate', ctrl.openstate);
             ctrl.globalCss.style.setProperty('--ctrl-width', ctrl.widths[+ctrl.openstate]);
         }
     }
@@ -225,20 +227,19 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
     }
 
     const min_or_max = (v:boolean) => {
-        const ht = !v ? default_options.min_lines : default_options.initial_lines;
+        const ht = v ? default_options.min_lines : default_options.initial_lines;
         resize(ht);
-
-
-        // if(!v){
-        //     E.num_lines = default_options.min_lines;
-        // }else{
-        //     E.num_lines = default_options.initial_lines;
-        // }
-        // resize();
     }
 
     const line_count_set = (v:boolean) => {
-        console.log(v,[-1,1][+v]);
+        const new_line_count = default_options.lines_showing + [-1,1][+v];
+        if(new_line_count >= default_options.min_lines && new_line_count <= default_options.max_lines){
+            // E.num_lines! = new_line_count;
+            default_options.lines_showing = new_line_count;
+            default_options.initial_lines = new_line_count;
+            update_lines();
+            resize(new_line_count);
+        }
     }
 
     const check_clear_select = (_:Event) => {
@@ -282,7 +283,9 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
     }
 
     const update_lines = ():void => {
-        for(let i = 0; i < E.num_lines!; i++){
+        const lct = Math.max(E.num_lines!,default_options.lines_showing);
+
+        for(let i = 0; i < lct; i++){
             if(E.line_numbers.list[i] === undefined){
                 const l = l_n(i);
                 const pre_text = `${i}`.padStart(2, '0')
@@ -293,7 +296,7 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
             }
         }
 
-        E.line_numbers.list = E.line_numbers.list.slice(0, E.num_lines!);
+        // E.line_numbers.list = E.line_numbers.list.slice(0, lct);
     }
 
 

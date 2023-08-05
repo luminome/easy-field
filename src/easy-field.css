@@ -1,44 +1,81 @@
 :root{
-    --fg: 255,255,255;
-    --bg: 0,0,0;
     --ctrl-width: 10px;
     --numbers-width: 32px;
-    --slate: rgb(64, 64, 64);
-    --fg-solid: 240, 0, 240;
-
     --btn-size: 28px;
     --btn-marg: 2px;
-
-    --btn-fg-solid: 240, 0, 240;
-    --btn-active-solid: 240, 240, 0;
-    --bg-solid: 120, 0, 120;
 }
 
+#test{
+    background: hsl(322, 99%, 38%);
+    --zone: 322 99%;
+    --zone-bg-l: 99%;
+}
+
+#test .svg-btn-button{
+    --zone: 322 99%;
+    --zone-bg-l: 99%;
+}
 
 textarea::placeholder {
-    color: rgba(var(--fg-solid),1.0);
+    color: var(--fg-solid);
 }
 
 .ez_dom{
-    background: rgba(var(--bg-solid),0.8);
+    --zone: 192 87%;
+    --zone-bg-l: 87%;
+
+    --fg-hsl: var(--zone) 80%;
+    --fg-solid: hsl(var(--fg-hsl));
+
+    --bg-hsl: var(--zone) 20%;
+
+    --bg-solid: hsl(var(--zone) 30%);
+    --bg-dark: hsl(var(--zone) 10%);
+
+    
+    --text: 50 100%;
+
+    background: var(--bg-solid);
     display: block;
     position: relative;
     overflow: visible;
+
+
+
 }
+
+.ez_dom .svg-btn-button{
+    --zone: 192 87%;
+    --zone-bg-l: 87%;
+
+}
+
 
 .ez_control{
     position: absolute;
     width: var(--ctrl-width);
+    
+    
+    /* width: calc(var(--zone-invert) + 8px); */
+
+
+
     pointer-events: all;
     cursor: pointer;
     overflow:hidden;
+
+    /* --zone: 50 100%; */
+    /*forced-overrides of native button css:*/
+    /* --btn-hsl: var(--zone) 50%;
+    --btn: hsl(var(--btn-hsl)); */
+
 }
 
 .ez_control .handle{
     width:4px;
     height:1.2em;
     border-radius: 2px;
-    background-color: rgb(var(--fg-solid));
+    background-color: hsl(var(--bg-hsl) / 1);
     position:absolute;
     top: 50%;
 	left: 3px;
@@ -49,12 +86,12 @@ textarea::placeholder {
 .ez_control .handle-break{
     position:absolute;
     height:100%;
-    border-right:2px rgba(var(--fg-solid), 0.5) dotted;
-    left: 10px;
+    border-right:2px hsl(var(--bg-hsl) / 0.8) dotted;
+    left: 9px;
 }
 
 .ez_control .buttons{
-    /* padding-top: 2px; */
+    
     position:absolute;
     height: 100%;
     left: 10px;
@@ -72,7 +109,7 @@ textarea::placeholder {
     border: 0;
     outline: none;
     font-size: 12px;
-    color: white !important;
+    color: hsl(var(--text) 80% / 1.0) !important;
     background: none;
     resize: none;
     overflow-y: scroll;
@@ -91,8 +128,7 @@ textarea::placeholder {
 
 .ez_numbers{
     font-family: monospace;
-    background-color: rgba(255,255,255,0.3);
-    color: rgb(var(--fg)) !important;
+    background-color: rgba(255,255,255,0.2);
     display: block;
     margin: 0;
     padding: 0;
@@ -108,8 +144,12 @@ textarea::placeholder {
     scrollbar-width: none;  /* Firefox */
 }
 
+.ez_numbers div{
+    color: hsl(var(--text) 50% / 1.0);
+}
+
 .ez_numbers div:nth-child(even){
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.125);
 }
 
 
