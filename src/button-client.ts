@@ -283,7 +283,12 @@ const button = (
 
         const toggle = () => {
             if(B.states && B.icon){
+                
+
                 B.states.toggle = force !== null ? (force as boolean) : !B.states.toggle;
+
+                console.log(B.states.toggle, 'again', B.label);
+
                 const cla = 'icon-active';
                 [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-${n}`)?.classList.toggle(cla));
                 [0,1].map((n:number) => B.icon?.querySelector(`#${B.label}-icon-${n}`)?.classList.toggle(cla));
