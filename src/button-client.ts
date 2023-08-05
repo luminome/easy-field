@@ -279,6 +279,8 @@ const button = (
     var interval_id: any | undefined;
     
     const set_state = (force:any = null):void => {
+        console.log(force, force as boolean);
+
         const toggle = () => {
             if(B.states && B.icon){
                 B.states.toggle = force !== null ? (force as boolean) : !B.states.toggle;
@@ -347,6 +349,7 @@ const button = (
         options: options,
         states: {toggle:false, active:false, visible:false},
         set_state: (state:any = null):void => {
+            console.log('enter set_state', state, state as boolean);
             set_state(state);
         },
         init: ():re_button => {
