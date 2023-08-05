@@ -21,7 +21,7 @@ textarea::placeholder {
 }
 
 .ez_dom{
-    --zone: 192 87%;
+    /* --zone: 192 87%;
     --zone-bg-l: 87%;
 
     --fg-hsl: var(--zone) 80%;
@@ -33,22 +33,19 @@ textarea::placeholder {
     --bg-dark: hsl(var(--zone) 10%);
 
     
-    --text: 50 100%;
+    --text: 50 100%; */
 
     background: var(--bg-solid);
     display: block;
     position: relative;
     overflow: visible;
-
-
-
 }
 
-.ez_dom .svg-btn-button{
+/* .ez_dom .svg-btn-button{
     --zone: 192 87%;
     --zone-bg-l: 87%;
 
-}
+} */
 
 
 .ez_control{
