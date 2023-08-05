@@ -2,7 +2,7 @@ import './easy-field.css';
 import './button-client.css';
 
 import easyField from './easy-field'
-import button, {re_button} from './button-client';
+import button from './button-client';
 
 const easy = easyField(document.querySelector<HTMLDivElement>('#field')!).init();
 easy.test();
