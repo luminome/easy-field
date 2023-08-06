@@ -4,7 +4,7 @@ import './button-client.css';
 import easyField from './easy-field'
 import button from './button-client';
 
-const easy = easyField(document.querySelector<HTMLDivElement>('#field')!).init();
+const easy = easyField(document.querySelector<HTMLDivElement>('#field')!).init(); //{maximized:false, drawer_open:true}
 easy.test();
 
 

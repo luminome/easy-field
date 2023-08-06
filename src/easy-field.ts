@@ -8,6 +8,8 @@ const default_options = {
     max_lines: 20,
     lines_showing: 10,
     line_height: 16,
+    maximized: true,
+    drawer_open: false
 }
 
 type easyField = {
@@ -20,6 +22,7 @@ type easyField = {
     dom_control?: HTMLDivElement;
     dom_numbers?: HTMLDivElement;
     dom_field?: HTMLTextAreaElement;
+    options: any;
     init: Function;
     test: Function;
     log: Function;
@@ -181,6 +184,8 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
 
             const rec:re_button = button('multi', 'collapse-expand', {}, ctrl.icon_click).init();
             const btn_rec = (rec.button as HTMLButtonElement);
+            rec.set_state(!ctrl.openstate);
+
             btn_rec.classList.add('invert');
             buttons && buttons.appendChild(btn_rec);
 
@@ -203,7 +208,7 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
 
         },
 
-        toggle: (_:Event) => {
+        toggle: () => {
             ctrl.openstate = !ctrl.openstate;
             console.log('ctrl.openstate', ctrl.openstate);
             ctrl.globalCss.style.setProperty('--ctrl-width', ctrl.widths[+ctrl.openstate]);
@@ -227,16 +232,16 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
     }
 
     const min_or_max = (v:boolean) => {
-        const ht = v ? default_options.min_lines : default_options.initial_lines;
+        const ht = v ? E.options.min_lines : E.options.initial_lines;
         resize(ht);
     }
 
     const line_count_set = (v:boolean) => {
-        const new_line_count = default_options.lines_showing + [-1,1][+v];
-        if(new_line_count >= default_options.min_lines && new_line_count <= default_options.max_lines){
+        const new_line_count = E.options.lines_showing + [-1,1][+v];
+        if(new_line_count >= E.options.min_lines && new_line_count <= E.options.max_lines){
             // E.num_lines! = new_line_count;
-            default_options.lines_showing = new_line_count;
-            default_options.initial_lines = new_line_count;
+            E.options.lines_showing = new_line_count;
+            E.options.initial_lines = new_line_count;
             update_lines();
             resize(new_line_count);
         }
@@ -278,12 +283,12 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
     }
 
     const resize = (val:number):void => {
-        const ht = val * E.line_height! + 'px';
+        const ht = val * E.options.line_height! + 'px';
         [E.dom_control, E.dom_numbers, E.dom_field, E.dom_node].map((el:any) => el && (el.style.height = ht));
     }
 
     const update_lines = ():void => {
-        const lct = Math.max(E.num_lines!,default_options.lines_showing);
+        const lct = Math.max(E.num_lines!,E.options.lines_showing);
 
         for(let i = 0; i < lct; i++){
             if(E.line_numbers.list[i] === undefined){
@@ -299,7 +304,6 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
         // E.line_numbers.list = E.line_numbers.list.slice(0, lct);
     }
 
-
     const log = {
         log_total_lines: 0,
         log:(...content: string[]) => {
@@ -309,7 +313,7 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
                E.dom_field.value = content.join('\n') + '\n' + E.dom_field.value;
                E.num_lines! = log.log_total_lines;
 
-               E.num_lines > default_options.initial_lines && update_lines();
+               E.num_lines > E.options.initial_lines && update_lines();
             }
             
         }
@@ -322,12 +326,13 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
 
     const init = (options:object = {}) => {
 
-        Object.assign(default_options, options);
-        Object.assign(E, default_options);
+        Object.assign(E.options!, options);
+
+        console.log(E.options);
 
         E.dom_field = document.createElement('textarea');
         E.dom_field.classList.add('ez_field');
-        E.dom_field.style.lineHeight = `${E.line_height}px`;
+        E.dom_field.style.lineHeight = `${E.options.line_height}px`;
         E.dom_field.setAttribute('placeholder','welcome to easy-field.');
         E.dom_field.setAttribute('rows','2');
 
@@ -338,7 +343,7 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
 
         E.dom_numbers = document.createElement('div');
         E.dom_numbers.classList.add('ez_numbers');
-        E.dom_numbers.style.lineHeight = `${E.line_height}px`;
+        E.dom_numbers.style.lineHeight = `${E.options.line_height}px`;
 
         E.dom_node?.appendChild(E.dom_numbers);
         E.dom_node?.appendChild(E.dom_field);
@@ -352,38 +357,28 @@ const easyFieldObject = (element: HTMLDivElement, callback:Function = (el:string
         });
 
         E.dom_node?.classList.add('ez_dom');
-        E.dom_node && (E.dom_node.style.height = (E.line_height!*E.num_lines!)+'px');
+        E.dom_node && (E.dom_node.style.height = (E.options.line_height*E.num_lines!)+'px');
 
-        resize(default_options.initial_lines);
+        resize(E.options.initial_lines);
         update_lines();
+        min_or_max(!E.options.maximized);
 
+        ctrl.openstate = !E.options.drawer_open;
         ctrl.set();
+        ctrl.toggle();
 
         return E;
     }
 
-
     const E:easyField = {
         line_numbers: {list:[]},
-        // num_lines: null,
-        // max_lines: null,
-        // line_height: null,
-
+        options: default_options,
         dom_node: element,
-        // dom_field: null,
-        // dom_numbers: null,
+        num_lines: default_options.num_lines || 10,
         test: test,
         init: init,
         log: log.log,
         input_callback: callback
-        // field: null,
-        // numbers: null,
-        // set_text,
-        // get_text,
-        // init,
-        // delta,
-        // check_key,
-        // resize
     }
 
     return E;

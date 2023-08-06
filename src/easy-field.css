@@ -35,6 +35,16 @@ textarea::placeholder {
     
     --text: 50 100%; */
 
+    --fg-hsl: var(--zone) 80%;
+    --fg-solid: hsl(var(--fg-hsl));
+
+    --bg-hsl: var(--zone) 20%;
+
+    --bg-solid: hsl(var(--zone) 30%);
+    --bg-dark: hsl(var(--zone) 10%);
+
+
+    
     background: var(--bg-solid);
     display: block;
     position: relative;
