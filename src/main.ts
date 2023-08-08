@@ -38,10 +38,10 @@ const test_field_bkgnd = document.querySelector<HTMLDivElement>('#test');
         src?.appendChild(btn.button as HTMLButtonElement);
     });
 
-    ['number'].map((b:string) => {
-        const btn = button('number', b).init();
+    ['number','number'].map((b:string, i:number) => {
+        const btn = button('numbers', b).init();
         src.id === 'test' && btn.button?.classList.add('invert');
-        btn.set_text('9a');
+        btn.set_text('9'+i);
         // btn.button?.classList.add('rotate');
         // btn.icon?.setAttribute('transform', "rotate(-90 0 0)");
         document.body.appendChild(btn.button as HTMLButtonElement);

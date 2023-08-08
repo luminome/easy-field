@@ -20,7 +20,7 @@ const ctrl_icons_default_states:any = {
 }
 
 const basic_number_icon = {labels:['number'], data:`
-<svg version="1.1" id="number" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="numbers" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="256px" height="256px" viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
 
 
@@ -242,7 +242,7 @@ const multistate_ctrl_icons = {labels:['io','collapse-expand','clear','plus'], d
 `};
 
 const source:any = {
-    number:{content:basic_number_icon.data, dom_loded:false},
+    numbers:{content:basic_number_icon.data, dom_loded:false},
     basic:{content:basic_ctrl_icons.data, dom_loded:false},
     split:{content:split_ctrl_icons.data, dom_loded:false},
     multi:{content:multistate_ctrl_icons.data, dom_loded:false}
@@ -277,14 +277,14 @@ export interface re_button {
 const make_svg = (container:HTMLDivElement, btn:re_button):void => {
     container.innerHTML = `<svg viewBox="0 0 256 ${btn.type === 'split' ? 512 : 256}"></svg>`;
     const svg_src = mdoc.querySelector(`#${btn.type}`) as SVGSVGElement;
-    console.log(svg_src);
+    // console.log(svg_src);
 
 
     const default_state = btn.options?.toggles ? btn.states.toggle : null;
     // console.log(btn.label, default_state);
 
     const iter_layers:any = {
-        'number': ['mask', 'border', btn.label],
+        'numbers': ['mask', 'border', btn.label],
         'basic': ['mask', 'border', btn.label],
         'split': [['mask', 0], ['mask', 1], 'border', [btn.label, 0], [btn.label, 1]],
         'multi': ['mask', 'border', [btn.label, 0], [btn.label, 1]],
